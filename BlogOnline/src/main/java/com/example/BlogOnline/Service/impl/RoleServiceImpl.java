@@ -85,6 +85,10 @@ public class RoleServiceImpl implements IRoleService {
             throw  new RuntimeException("El Role debe tener al menos un permiso");
         }
 
+        if (dto.isEnabled() != role.isEnabled()) {
+            role.setEnabled(dto.isEnabled());
+        }
+
         Role updated = roleRepository.save(role);
         return roleMapper.toRoleDTO(updated);
     }
@@ -92,7 +96,11 @@ public class RoleServiceImpl implements IRoleService {
 
     @Override
     public void delete(Long id) {
-        roleRepository.deleteById(id);
+
+        Role role = roleRepository.getById(id);
+        role.setEnabled(false);
+
+        roleRepository.save(role);
     }
 
 }

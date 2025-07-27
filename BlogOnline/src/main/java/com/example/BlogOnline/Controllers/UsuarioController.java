@@ -5,6 +5,7 @@ import com.example.BlogOnline.Service.interfaces.IUsuarioService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -33,9 +34,9 @@ public class UsuarioController {
         return ResponseEntity.ok(usuarioService.createUsuario(usuarioDto));
     }
 
-    @PutMapping("/{id}")
-    public ResponseEntity<UsuarioDto> updateUsuario(@PathVariable Long id, @RequestBody UsuarioDto usuarioDto) {
-        return ResponseEntity.ok(usuarioService.updateUsuario(id, usuarioDto));
+    @PutMapping("/usuarios/update")
+    public ResponseEntity<UsuarioDto> updateUsuario(@RequestBody UsuarioDto usuarioDto, Authentication authentication) {
+        return ResponseEntity.ok(usuarioService.updateUsuario(authentication.getName(), usuarioDto));
     }
 
     @DeleteMapping("/{id}")

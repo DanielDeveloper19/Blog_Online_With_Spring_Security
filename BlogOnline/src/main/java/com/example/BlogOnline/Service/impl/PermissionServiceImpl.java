@@ -20,21 +20,22 @@ public class PermissionServiceImpl implements IPermissionService {
     public PermissionDTO create(PermissionDTO dto) {
         Permission perm = new Permission();
         perm.setName(dto.getName());
+        perm.setEnabled(dto.isEnabled());
         Permission saved = permissionRepository.save(perm);
-        return new PermissionDTO(saved.getId(), saved.getName());
+        return new PermissionDTO(saved.getId(), saved.getName(), saved.isEnabled());
     }
 
     @Override
     public PermissionDTO getById(Long id) {
         Permission perm = permissionRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Permission not found"));
-        return new PermissionDTO(perm.getId(), perm.getName());
+        return new PermissionDTO(perm.getId(), perm.getName(), perm.isEnabled());
     }
 
     @Override
     public List<PermissionDTO> getAll() {
         return permissionRepository.findAll().stream()
-                .map(p -> new PermissionDTO(p.getId(), p.getName()))
+                .map(p -> new PermissionDTO(p.getId(), p.getName(), p.isEnabled()))
                 .collect(Collectors.toList());
     }
 
@@ -43,12 +44,17 @@ public class PermissionServiceImpl implements IPermissionService {
         Permission perm = permissionRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Permission not found"));
         perm.setName(dto.getName());
+        perm.setEnabled(dto.isEnabled());
         Permission updated = permissionRepository.save(perm);
-        return new PermissionDTO(updated.getId(), updated.getName());
+        return new PermissionDTO(updated.getId(), updated.getName(),  updated.isEnabled());
     }
 
     @Override
     public void delete(Long id) {
-        permissionRepository.deleteById(id);
+
+        Permission permission = permissionRepository.getById(id);
+permission.setEnabled(false);
+
+permissionRepository.save(permission);
     }
 }

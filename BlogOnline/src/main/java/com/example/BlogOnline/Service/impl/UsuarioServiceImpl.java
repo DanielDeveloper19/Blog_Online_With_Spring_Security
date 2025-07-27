@@ -1,6 +1,7 @@
 package com.example.BlogOnline.Service.impl;
 
 import com.example.BlogOnline.DTO.UsuarioDto;
+import com.example.BlogOnline.Model.Permission;
 import com.example.BlogOnline.Model.Usuario;
 import com.example.BlogOnline.Repository.UsuarioRepository;
 import com.example.BlogOnline.Service.interfaces.IUsuarioService;
@@ -34,16 +35,20 @@ public class UsuarioServiceImpl implements IUsuarioService {
     }
 
     @Override
-    public UsuarioDto updateUsuario(Long id, UsuarioDto usuarioDto) {
-        Usuario existingUsuario = usuarioRepository.findById(id).orElseThrow(() -> new RuntimeException("Usuario not found"));
+    public UsuarioDto updateUsuario(String name, UsuarioDto usuarioDto) {
+        Usuario existingUsuario = usuarioRepository.findByUsername(name).orElseThrow(() -> new RuntimeException("Usuario not found"));
         existingUsuario.setUsername(usuarioDto.getUsername());
-        existingUsuario.setEnabled(usuarioDto.isEnabled());
+
         return convertToDto(usuarioRepository.save(existingUsuario));
     }
 
     @Override
     public void deleteUsuario(Long id) {
-        usuarioRepository.deleteById(id);
+
+        Usuario usuario = usuarioRepository.getById(id);
+        usuario.setEnabled(false);
+
+        usuarioRepository.save(usuario);
     }
 
     private UsuarioDto convertToDto(Usuario usuario) {

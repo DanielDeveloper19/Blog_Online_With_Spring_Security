@@ -43,4 +43,5 @@ public class Usuario {
         return Objects.equals(id, usuario.id);
     }
 
+
 }

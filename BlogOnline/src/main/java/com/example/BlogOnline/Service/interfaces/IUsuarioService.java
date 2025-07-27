@@ -8,6 +8,6 @@ public interface IUsuarioService {
     List<UsuarioDto> getAllUsuarios();
     UsuarioDto getUsuarioById(Long id);
     UsuarioDto createUsuario(UsuarioDto usuarioDto);
-    UsuarioDto updateUsuario(Long id, UsuarioDto usuarioDto);
+    UsuarioDto updateUsuario(String name, UsuarioDto usuarioDto);
     void deleteUsuario(Long id);
 }

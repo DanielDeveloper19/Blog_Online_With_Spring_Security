@@ -3,23 +3,38 @@ package com.example.BlogOnline.mapeos;
 
 import com.example.BlogOnline.DTO.PosteoDTO;
 import com.example.BlogOnline.Model.Posteo;
-import org.mapstruct.Mapper;
-import org.mapstruct.Mapping;
 
-@Mapper(componentModel = "spring")
-public interface IPostMapper {
+import com.example.BlogOnline.Repository.UsuarioRepository;
 
-    @Mapping(source = "id", target = "id")
-    @Mapping(source = "content", target = "content")
-    @Mapping(source = "user", target = "user")
-    @Mapping(source = "enabled", target = "enabled")
-    PosteoDTO convertToDTO(Posteo posteo);
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
-    @Mapping(source = "id", target = "id")
-    @Mapping(source = "content", target = "content")
-    @Mapping(source = "user", target = "user")
-    @Mapping(source = "enabled", target = "enabled")
-    Posteo convertToEntity(PosteoDTO posteoDTO);
+@Component
+public class IPostMapper {
+
+    @Autowired
+    private UsuarioRepository usuarioRepository;
+
+    public PosteoDTO convertToDTO(Posteo posteo){
+        PosteoDTO posteoDTO = new PosteoDTO();
+        posteoDTO.setId(posteo.getId());
+        posteoDTO.setContent(posteo.getContent());
+        posteoDTO.setUserName(posteo.getUser().getUsername());
+        posteoDTO.setEnabled(posteo.isEnabled());
+        return posteoDTO;
+    }
+
+    public Posteo convertToEntity(PosteoDTO posteoDTO){
+
+        Posteo posteo = new Posteo();
+        posteo.setId(posteoDTO.getId());
+        posteo.setContent(posteoDTO.getContent());
+        posteo.setUser(usuarioRepository.findByUsername(posteoDTO.getUserName())
+                .orElseThrow(() -> new RuntimeException("Usuario no encontrado: " + posteoDTO.getUserName())));
+
+        posteo.setEnabled(posteoDTO.isEnabled());
+return  posteo;
+    }
 
 
 }

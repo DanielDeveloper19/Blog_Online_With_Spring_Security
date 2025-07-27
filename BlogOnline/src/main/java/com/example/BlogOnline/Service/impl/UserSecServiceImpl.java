@@ -3,6 +3,7 @@ package com.example.BlogOnline.Service.impl;
 import com.example.BlogOnline.DTO.PermissionDTO;
 import com.example.BlogOnline.DTO.RoleDTO;
 import com.example.BlogOnline.DTO.UserSecDTO;
+import com.example.BlogOnline.Model.Permission;
 import com.example.BlogOnline.Model.Role;
 import com.example.BlogOnline.Model.UserSec;
 import com.example.BlogOnline.Repository.RoleRepository;
@@ -39,20 +40,6 @@ public class UserSecServiceImpl implements IUserSecService {
 
     @Override
     public UserSecDTO create(UserSecDTO dto) {
-
-        if (dto.getEnabled() == null){
-        dto.setEnabled(true);
-        }
-        if (dto.getAccountNonLocked() == null){
-            dto.setAccountNonLocked(true);
-        }
-        if (dto.getAccountNonExpired() == null){
-            dto.setAccountNonExpired(true);
-        }
-        if (dto.getCredentialsNonExpired() == null){
-            dto.setCredentialsNonExpired(true);
-        }
-
 
         UserSec user = userSecMapper.toEntity(dto);
 
@@ -126,7 +113,11 @@ public class UserSecServiceImpl implements IUserSecService {
 
     @Override
     public void delete(Long id) {
-        userRepository.deleteById(id);
+
+        UserSec userSec = userRepository.getById(id);
+        userSec.setEnabled(false);
+
+        userRepository.save(userSec);
     }
 
 

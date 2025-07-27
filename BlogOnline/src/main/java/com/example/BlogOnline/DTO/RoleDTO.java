@@ -15,4 +15,5 @@ public class RoleDTO {
     private Long id;
     private String name;
     private Set<PermissionDTO> permissions;
+    private boolean enabled = true;
 }

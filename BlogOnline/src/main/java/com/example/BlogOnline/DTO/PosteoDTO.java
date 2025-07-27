@@ -16,8 +16,8 @@ public class PosteoDTO {
     @NotBlank()
     private String content;
 
-    private Usuario user;
+    private String userName;
 
-    private boolean enabled;
+    private boolean enabled = true;
 
 }

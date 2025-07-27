@@ -16,5 +16,7 @@ public class Permission {
 
     @Column(unique = true)
     private String name;
+
+    private boolean enabled = true;
 }
 

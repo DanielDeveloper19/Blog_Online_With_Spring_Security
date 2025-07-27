@@ -25,6 +25,7 @@ public class PosteoController { //Listo
     private  PosteoServiceImpl posteoService;
 
     // Crear nuevo posteo (usuario extraído del token)
+    //LISTO
     @PostMapping(value = "/posteo/create",
             consumes = MediaType.APPLICATION_JSON_VALUE,
             produces = MediaType.APPLICATION_JSON_VALUE)
@@ -53,6 +54,7 @@ public class PosteoController { //Listo
     }
 
     // Obtener mis posteos (del usuario autenticado)
+    //lISTO
     @GetMapping("/posteos/myPosts")
     public ResponseEntity<List<PosteoDTO>> getMyPosteos(Authentication authentication) {
 
@@ -80,7 +82,7 @@ public class PosteoController { //Listo
     }
 
     // Actualizar posteo (solo el propietario puede hacerlo)
-    @PutMapping("/{id}")
+    @PutMapping("posteos/update/{id}")
     public ResponseEntity<PosteoDTO> updatePosteo(@PathVariable Long id,
                                                   @Valid @RequestBody PosteoRequestDTO posteoRequestDTO,
                                                   Authentication authentication) {
@@ -94,7 +96,8 @@ public class PosteoController { //Listo
     }
 
     // Eliminar posteo (solo el propietario puede hacerlo)
-    @DeleteMapping("/{id}")
+    // LISTO
+    @DeleteMapping("/posteos/delete/{id}")
     public ResponseEntity<Void> deletePosteo(@PathVariable Long id, Authentication authentication) {
         try {
             String username = authentication.getName();
