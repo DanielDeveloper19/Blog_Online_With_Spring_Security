@@ -35,7 +35,7 @@ public class securityConfig {
                 .csrf(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> {
-                    auth.requestMatchers("/auth/login", "/oauth2/**", "/login/oauth2/**", "/h2-console/**", "/").permitAll();
+                    auth.requestMatchers( "/oauth2/**", "/login/oauth2/**", "/h2-console/**", "/").permitAll();
                     auth.anyRequest().authenticated();
                 })
                 .httpBasic(Customizer.withDefaults())

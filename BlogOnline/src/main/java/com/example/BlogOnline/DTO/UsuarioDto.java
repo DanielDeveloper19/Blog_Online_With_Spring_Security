@@ -7,7 +7,7 @@ import java.util.Set;
 public class UsuarioDto {
     private Long id;
     private String username;
-    private Set<Long> posteoIds;
+    private Set<PosteoDTO> posteos;
     private boolean enabled = true;
 
 }

@@ -4,6 +4,7 @@ package com.example.BlogOnline.Controllers;
 import com.example.BlogOnline.DTO.AuthLoginRequestDTO;
 import com.example.BlogOnline.Service.UserDetailsServiceImpl;
 import org.apache.coyote.BadRequestException;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.RestController;
 
 
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import jakarta.validation.Valid;
 
 @RestController
+@PreAuthorize("hasRole('ADMIN')")
 public class AuthenticationController {
 
     @Autowired

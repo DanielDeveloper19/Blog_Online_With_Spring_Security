@@ -26,8 +26,8 @@ public interface IUserSecMapper {
                 .roles(user.getRoles().stream()
                         .map(r -> new RoleDTO(r.getId(), r.getName(),
                                 r.getPermissions().stream()
-                                        .map(p -> new PermissionDTO(p.getId(), p.getName()))
-                                        .collect(Collectors.toSet())))
+                                        .map(p -> new PermissionDTO(p.getId(), p.getName(), p.isEnabled()))
+                                        .collect(Collectors.toSet()), r.isEnabled()))
                         .collect(Collectors.toSet()))
                 .build();
 

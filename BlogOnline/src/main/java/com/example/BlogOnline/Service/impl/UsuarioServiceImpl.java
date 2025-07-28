@@ -1,7 +1,9 @@
 package com.example.BlogOnline.Service.impl;
 
+import com.example.BlogOnline.DTO.PosteoDTO;
 import com.example.BlogOnline.DTO.UsuarioDto;
 import com.example.BlogOnline.Model.Permission;
+import com.example.BlogOnline.Model.Posteo;
 import com.example.BlogOnline.Model.Usuario;
 import com.example.BlogOnline.Repository.UsuarioRepository;
 import com.example.BlogOnline.Service.interfaces.IUsuarioService;
@@ -9,10 +11,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 @Service
-public class UsuarioServiceImpl implements IUsuarioService {
+public class UsuarioServiceImpl implements IUsuarioService { //Todo el endpoint listo
 
     @Autowired
     private UsuarioRepository usuarioRepository;
@@ -56,6 +59,21 @@ public class UsuarioServiceImpl implements IUsuarioService {
         usuarioDto.setId(usuario.getId());
         usuarioDto.setUsername(usuario.getUsername());
         usuarioDto.setEnabled(usuario.isEnabled());
+
+        Set<Posteo> posteos = usuario.getPosteos();
+
+        if (posteos != null && !posteos.isEmpty()) {
+            Set<PosteoDTO> posteosDto = posteos.stream()
+                    .map(posteo -> new PosteoDTO(
+                            posteo.getId(),
+                            posteo.getContent(),
+                            posteo.getUser().getUsername(),
+                            posteo.isEnabled()
+                    ))
+                    .collect(Collectors.toSet());
+
+            usuarioDto.setPosteos(posteosDto);
+        }
         return usuarioDto;
     }
 

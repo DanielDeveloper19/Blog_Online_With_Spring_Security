@@ -12,14 +12,12 @@ import java.util.List;
 
 
 @RestController
-@RequestMapping("/usuarios")
-@PreAuthorize("hasRole('ADMIN')")
 public class UsuarioController {
 
     @Autowired
     private IUsuarioService usuarioService;
 
-    @GetMapping
+    @GetMapping("/usuarios/getAll")
     public ResponseEntity<List<UsuarioDto>> getAllUsuarios() {
         return ResponseEntity.ok(usuarioService.getAllUsuarios());
     }
