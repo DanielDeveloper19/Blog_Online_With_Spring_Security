@@ -83,7 +83,7 @@ public class UserSecServiceImpl implements IUserSecService {
 
         if (dto.getPassword() != null) {
 
-            String passwordBycrpt = passwordEncoder.encode(user.getPassword());
+            String passwordBycrpt = passwordEncoder.encode(dto.getPassword());
             user.setPassword(passwordBycrpt);}
 
         if (dto.getEnabled() == false) {

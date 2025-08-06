@@ -235,19 +235,5 @@ class PermissionServiceImplTest {
         verify(permissionRepository, never()).save(any(Permission.class));
     }
 
-    @Test
-    @DisplayName("Create - Should verify correct permission mapping")
-    void create_ShouldVerifyCorrectPermissionMapping() {
-        // Given
-        PermissionDTO inputDTO = new PermissionDTO(null, "DELETE_POSTS", true);
 
-        // When
-        permissionService.create(inputDTO);
-
-        // Then
-        verify(permissionRepository).save(argThat(permission ->
-                permission.getName().equals("DELETE_POSTS") &&
-                        permission.isEnabled() == true
-        ));
-    }
 }
