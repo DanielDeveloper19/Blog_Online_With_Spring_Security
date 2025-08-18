@@ -11,5 +11,5 @@ public interface RoleRepository extends JpaRepository<Role,Long> {
 
     public boolean existsByName(String name);
     public Optional<Role> findByName(String name);
-
+    public void deleteAll();
 }

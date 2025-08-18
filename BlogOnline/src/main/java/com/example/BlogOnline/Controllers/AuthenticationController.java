@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RestController;
 import jakarta.validation.Valid;
 
 @RestController
-@PreAuthorize("hasRole('ADMIN')")
 public class AuthenticationController {
 
     @Autowired
@@ -30,7 +29,7 @@ public class AuthenticationController {
 
        if (userRequest.password() == null || userRequest.password().isEmpty()) {
             // El password está vacío o es null, es necesario el siguiento código, si no no genera el token si no hay Password
-           return new ResponseEntity<>(this.userDetailsService.loginOAuthUser(userRequest), HttpStatus.OK);
+           return new ResponseEntity(HttpStatus.BAD_REQUEST);
         }
         return new ResponseEntity<>(this.userDetailsService.loginUser(userRequest), HttpStatus.OK);
     }

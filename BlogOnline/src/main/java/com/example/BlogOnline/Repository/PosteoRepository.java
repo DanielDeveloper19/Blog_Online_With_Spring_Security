@@ -12,5 +12,5 @@ public interface PosteoRepository extends JpaRepository<Posteo,Long> {
 
     List<Posteo> findByUserId(Long userId);
 
-
+    public void deleteAll();
 }

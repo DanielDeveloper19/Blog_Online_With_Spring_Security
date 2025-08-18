@@ -17,7 +17,7 @@ public class UserSecDTO {
 
 
 
-    @NotNull(message = "id can not to be null")
+
     private Long id;
 
     @NotBlank(message = "name can't to be null")

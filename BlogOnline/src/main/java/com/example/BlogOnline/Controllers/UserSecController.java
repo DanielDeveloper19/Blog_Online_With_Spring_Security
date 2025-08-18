@@ -38,7 +38,7 @@ public class UserSecController {
         return ResponseEntity.ok(userSecService.update(id, dto));
     }
 
-    @DeleteMapping("/userSec/delete{id}")
+    @DeleteMapping("/userSec/delete/{id}")
     public ResponseEntity<Void> delete(@PathVariable Long id) {
         userSecService.delete(id);
         return ResponseEntity.noContent().build();

@@ -13,4 +13,5 @@ public interface UserSecRepo extends JpaRepository<UserSec, Long> {
     Optional<UserSec> findByEmail(String email);
 
     UserSec user(Usuario user);
+    public void deleteAll();
 }
