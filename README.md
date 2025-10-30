@@ -49,7 +49,7 @@ How to Run Locally
 
 Clone the repository
 
-git clone https://github.com/<your-username>/blog-online.git
+git clone https://github.com/DanielDeveloper19/Blog_Online_With_Spring_Security.git
 cd blog-online
 
 
